@@ -1,3 +1,12 @@
+Link Google Drive (`[https://drive.google.com/file/d/1HwF2xzY28pOMIvNAhaucE456yJLRq_oh/view?usp=drive_link](https://drive.google.com/file/d/1HwF2xzY28pOMIvNAhaucE456yJLRq_oh/view?usp=drive_link)`) tidak bisa langsung dimasukkan ke atribut `src` pada tag `<img>` karena itu adalah halaman *preview* Google Drive, bukan link file gambar langsung.
+
+Untuk memunculkannya di HTML, link tersebut harus diubah ke format **thumbnail/direct image link** Google Drive (`[https://drive.google.com/thumbnail?id=1HwF2xzY28pOMIvNAhaucE456yJLRq_oh&sz=w500](https://drive.google.com/thumbnail?id=1HwF2xzY28pOMIvNAhaucE456yJLRq_oh&sz=w500)`), serta ditambahkan `referrerpolicy="no-referrer"` agar tidak diblokir oleh browser.
+
+**Pastikan pengaturan berbagi (Share) file logo di Google Drive sudah diubah menjadi *"Siapa saja yang memiliki link" (Anyone with the link)*.**
+
+Berikut adalah kode lengkap siap kopas yang sudah menggunakan link Google Drive Anda (lengkap dengan fitur *cache* dan *retry*):
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -71,8 +80,7 @@ footer{margin-top:8px;text-align:center;font-size:12px;color:var(--mut);padding:
 </head>
 <body>
 <header><div class="wrap">
-  <!-- GUNAKAN FILE logo.png DI SATU FOLDER YANG SAMA -->
-  <div class="bar"><img class="logo" id="logo" src="logo.png" alt="Logo SMK Negeri 1 Plupuh"><div><h1>Guru & Staf TU Favorit</h1><p>SMK Negeri 1 Plupuh</p></div></div>
+  <div class="bar"><img class="logo" id="logo" src="https://drive.google.com/thumbnail?id=1HwF2xzY28pOMIvNAhaucE456yJLRq_oh&sz=w500" referrerpolicy="no-referrer" alt="Logo SMK Negeri 1 Plupuh"><div><h1>Guru & Staf TU Favorit</h1><p>SMK Negeri 1 Plupuh</p></div></div>
   <div class="steps"><div class="step on" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
   <div class="sl"><span class="on" id="t1">Masuk</span><span id="t2">Pilih Guru</span><span id="t3">Pilih Staf TU</span></div>
 </div></header>
@@ -296,15 +304,11 @@ $('m-yes').onclick = function () {
   }).then(function () { S.busy = false; y.disabled = false; y.textContent = 'Ya, saya yakin'; S.pending = null; });
 };
 
-// Pastikan gambar logo ter-load sebelum mengambil properti src untuk CSS variables & favicon
-window.addEventListener('load', function() {
-  var logoEl = $('logo');
-  if (logoEl && logoEl.src) {
-    document.documentElement.style.setProperty('--logo', 'url(' + logoEl.src + ')');
-    var fav = document.createElement('link'); fav.rel = 'icon'; fav.href = logoEl.src; document.head.appendChild(fav);
-  }
-});
+document.documentElement.style.setProperty('--logo', 'url(' + $('logo').src + ')');
+var fav = document.createElement('link'); fav.rel = 'icon'; fav.href = $('logo').src; document.head.appendChild(fav);
 loadPublic();
 </script>
 </body>
 </html>
+
+```
