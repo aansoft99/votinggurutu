@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voting Guru & Staf TU Favorit | SMKN 1 Plupuh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#2563eb;--blue2:#1d4ed8;--soft:#eaf1ff;--bg:#f5f8ff;--ink:#0f1f3d;--mut:#64748b;--line:#dbe6f7;--ok:#16a34a;--bad:#dc2626}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-gradient(180deg,#e8f0ff 0,var(--bg) 320px);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+header{background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+.bar{display:flex;align-items:center;gap:12px;padding:12px 0}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#60a5fa,var(--blue2));box-shadow:0 6px 14px rgba(37,99,235,.3);color:#fff;display:grid;place-items:center;font-weight:800}
+.bar h1{font-size:15px;font-weight:800;line-height:1.2}.bar p{font-size:12px;color:var(--mut)}
+.steps{display:flex;gap:8px;padding-bottom:12px}.sl{display:flex;gap:8px;font-size:11px;font-weight:700;color:var(--mut);padding-bottom:12px;margin-top:-6px}.sl span{flex:1}.sl .on{color:var(--blue)}
+.step{flex:1;height:5px;border-radius:9px;background:var(--line);transition:background .4s}
+.step.on{background:var(--blue)}
+main{padding:24px 0 48px}
+.view{display:none;animation:in .45s cubic-bezier(.2,.8,.2,1)}.view.show{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 8px 30px rgba(37,99,235,.07)}
+.login{max-width:420px;margin:24px auto}
+h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.sub{color:var(--mut);font-size:14px;line-height:1.5;margin-bottom:18px}
+label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+input{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:15px;outline:none;transition:.2s}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.btn{border:0;border-radius:12px;padding:13px 18px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;background:var(--blue);color:#fff;transition:.2s;width:100%}
+.btn:hover{background:var(--blue2);box-shadow:0 8px 18px rgba(37,99,235,.28)}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.55;cursor:wait}
+.btn.ghost{background:var(--soft);color:var(--blue)}.btn.ghost:hover{background:#dbe8ff}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:10px 14px;border-radius:12px;background:var(--soft);color:var(--blue2);margin-bottom:16px}
+.status.off{background:#fef2f2;color:var(--bad)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.head{margin-bottom:18px}
+.cand{animation:in .5s both}.cand:nth-child(2){animation-delay:.05s}.cand:nth-child(3){animation-delay:.1s}.cand:nth-child(4){animation-delay:.15s}.cand:nth-child(5){animation-delay:.2s}.cand:nth-child(6){animation-delay:.25s}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr);gap:18px}}
+.cand{background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;padding:0}
+.cand:focus-visible,.btn:focus-visible{outline:3px solid rgba(37,99,235,.4);outline-offset:2px}.cand:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 14px 30px rgba(37,99,235,.15)}
+.ph{aspect-ratio:4/5;background:var(--soft);position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .ini{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;font-weight:800;color:var(--blue);opacity:.5}
+.no{position:absolute;top:10px;left:10px;background:#fff;color:var(--blue);font-weight:800;font-size:12px;padding:4px 10px;border-radius:99px;z-index:2}
+.cb{padding:12px 14px 14px}.cb b{display:block;font-size:14px;line-height:1.3}.cb span{font-size:12px;color:var(--mut)}
+.pick{margin-top:10px;background:var(--soft);color:var(--blue);text-align:center;padding:9px;border-radius:10px;font-size:13px;font-weight:700}
+.cand:hover .pick{background:var(--blue);color:#fff}
+.who{font-size:13px;color:var(--mut);margin-bottom:14px}.who b{color:var(--ink)}
+.done{max-width:460px;margin:24px auto;text-align:center}
+.check{width:72px;height:72px;border-radius:50%;background:#dcfce7;color:var(--ok);display:grid;place-items:center;font-size:36px;margin:0 auto 16px;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.sum{background:var(--bg);border-radius:14px;padding:14px;margin:16px 0;text-align:left;font-size:14px;line-height:1.7}
+.ov{position:fixed;inset:0;background:rgba(15,31,61,.45);backdrop-filter:blur(4px);display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:.25s;z-index:20}
+.ov.show{opacity:1;pointer-events:auto}
+.md{background:#fff;border-radius:22px;padding:24px;max-width:360px;width:100%;text-align:center;transform:scale(.92);transition:.25s}
+.ov.show .md{transform:none}
+.md img,.md .mi{width:84px;height:84px;border-radius:50%;object-fit:cover;margin:0 auto 12px;background:var(--soft);display:grid;place-items:center;font-size:30px;font-weight:800;color:var(--blue)}
+.md h3{font-size:18px;font-weight:800;margin-bottom:6px}.md p{font-size:14px;color:var(--mut);margin-bottom:18px;line-height:1.5}
+.row{display:flex;gap:10px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:600;opacity:0;transition:.35s;z-index:30;max-width:90%;text-align:center}
+#toast.show{transform:translate(-50%,0);opacity:1}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:0 16px 24px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="bar"><div class="logo">V</div><div><h1>Guru & Staf TU Favorit</h1><p>SMK Negeri 1 Plupuh</p></div></div>
+  <div class="steps"><div class="step on" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
+  <div class="sl"><span class="on" id="t1">Masuk</span><span id="t2">Pilih Guru</span><span id="t3">Pilih Staf TU</span></div>
+</div></header>
+
+<main class="wrap">
+  <!-- Masuk -->
+  <section class="view show" id="v-login"><div class="card login">
+    <h2>Masuk untuk memilih</h2>
+    <p class="sub">Siswa memakai NIS. Guru dan Staf TU memakai NIP. Setiap nomor hanya bisa memilih satu kali.</p>
+    <div class="status" id="status"><span class="dot"></span><span id="status-t">Memuat jadwal…</span></div>
+    <label for="uid">NIS / NIP</label>
+    <input id="uid" inputmode="numeric" autocomplete="off" placeholder="Masukkan NIS atau NIP">
+    <button class="btn" id="btn-login" style="margin-top:16px" disabled>Masuk</button>
+  </div></section>
+
+  <!-- Guru -->
+  <section class="view" id="v-guru">
+    <div class="head"><p class="who">Halo, <b class="nm"></b></p><h2>Pilih Guru Favorit</h2><p class="sub">Ketuk satu kartu untuk memilih. Kamu akan diminta konfirmasi.</p></div>
+    <div class="grid" id="g-guru"></div>
+  </section>
+
+  <!-- TU -->
+  <section class="view" id="v-tu">
+    <div class="head"><p class="who">Halo, <b class="nm"></b></p><h2>Pilih Staf TU Favorit</h2><p class="sub">Langkah terakhir. Pilihanmu disimpan setelah kamu konfirmasi.</p></div>
+    <div class="grid" id="g-tu"></div>
+  </section>
+
+  <!-- Selesai -->
+  <section class="view" id="v-done"><div class="card done">
+    <div class="check">✓</div>
+    <h2>Terima kasih!</h2>
+    <p class="sub">Suaramu sudah tersimpan.</p>
+    <div class="sum" id="sum"></div>
+    <button class="btn ghost" onclick="location.reload()">Selesai</button>
+  </div></section>
+</main>
+<footer>&copy; 2026 Voting SMK Negeri 1 Plupuh</footer>
+
+<div class="ov" id="ov"><div class="md">
+  <div id="m-img"></div>
+  <h3>Konfirmasi pilihan</h3>
+  <p id="m-text"></p>
+  <div class="row"><button class="btn ghost" id="m-no">Batal</button><button class="btn" id="m-yes">Ya, saya yakin</button></div>
+</div></div>
+<div id="toast"></div>
+
+<script>
+// ===== GANTI dengan URL Web App Apps Script Anda =====
+var API = 'https://script.google.com/macros/s/AKfycbyzl8TbuCrBW_88UIsYVSTSNzrO6Ac4mWPoZx2-QbJbq4Ew-3HpLfa_u_UAO7P0eKqh/exec';
+
+var S = { me: null, k: { Guru: [], TU: [] }, guru: null, tu: null, pending: null, busy: false };
+var $ = function (i) { return document.getElementById(i); };
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+function post(o) {
+  return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(o) })
+    .then(function (r) { return r.json(); })
+    .then(function (j) { if (!j.ok) throw new Error(j.error || 'Terjadi kesalahan'); return j.result; });
+}
+function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 3800); }
+function show(id, step) {
+  document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('show'); });
+  $(id).classList.add('show'); window.scrollTo({ top: 0, behavior: 'smooth' });
+  ['s1', 's2', 's3'].forEach(function (s, i) { $(s).classList.toggle('on', i < step); $('t' + (i + 1)).classList.toggle('on', i < step); });
+}
+function fmt(ms) { return new Date(ms).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }); }
+
+// ---- Jadwal ----
+function loadPublic() {
+  fetch(API + '?action=public').then(function (r) { return r.json(); }).then(function (j) {
+    if (!j.ok) throw new Error(j.error);
+    S.k = j.result.kandidat;
+    var d = j.result.jadwal, st = $('status'), t = $('status-t'), b = $('btn-login');
+    if (d.status === 'buka') { st.classList.remove('off'); t.textContent = 'Voting dibuka sampai ' + fmt(d.tutup); b.disabled = false; }
+    else if (d.status === 'belum') { st.classList.add('off'); t.textContent = d.buka ? 'Voting dibuka pada ' + fmt(d.buka) : 'Jadwal voting belum ditentukan'; }
+    else { st.classList.add('off'); t.textContent = 'Voting sudah ditutup'; }
+  }).catch(function () { $('status-t').textContent = 'Gagal memuat data. Muat ulang halaman.'; $('status').classList.add('off'); });
+}
+
+// ---- Login ----
+function doLogin() {
+  var id = $('uid').value.trim();
+  if (id.length < 3) return toast('Masukkan NIS / NIP dengan benar.');
+  var b = $('btn-login'); b.disabled = true; b.textContent = 'Memeriksa…';
+  post({ action: 'login', id: id }).then(function (me) {
+    S.me = me;
+    document.querySelectorAll('.nm').forEach(function (e) { e.textContent = me.nama || me.id; });
+    renderGrid('Guru', 'g-guru'); renderGrid('TU', 'g-tu');
+    show('v-guru', 2);
+  }).catch(function (e) { toast(e.message); })
+    .then(function () { b.disabled = false; b.textContent = 'Masuk'; });
+}
+$('btn-login').onclick = doLogin;
+$('uid').onkeydown = function (e) { if (e.key === 'Enter' && !$('btn-login').disabled) doLogin(); };
+
+// ---- Kartu ----
+function photo(c) {
+  var ini = esc((c.nama || '?').replace(/^(Drs?\.|Dra\.|Hj\.|H\.|Ir\.)\s*/i, '').charAt(0));
+  return '<div class="ph"><span class="ini">' + ini + '</span>' +
+    (c.foto ? '<img src="' + esc(c.foto) + '" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="this.remove()">' : '') +
+    '<span class="no">No. ' + c.no + '</span></div>';
+}
+function renderGrid(cat, el) {
+  var h = '';
+  S.k[cat].slice(0, 6).forEach(function (c) {
+    h += '<button class="cand" data-cat="' + cat + '" data-no="' + c.no + '">' + photo(c) +
+      '<div class="cb"><b>' + esc(c.nama) + '</b><span>' + esc(c.info) + '</span><div class="pick">Pilih</div></div></button>';
+  });
+  $(el).innerHTML = h || '<p class="sub">Belum ada kandidat.</p>';
+}
+document.addEventListener('click', function (e) {
+  var c = e.target.closest('.cand'); if (!c) return;
+  var cat = c.dataset.cat, no = parseInt(c.dataset.no, 10);
+  var cand = S.k[cat].filter(function (x) { return x.no === no; })[0];
+  S.pending = { cat: cat, c: cand };
+  var m = $('m-img'), ini = esc(cand.nama.charAt(0));
+  m.innerHTML = cand.foto ? '<img src="' + esc(cand.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<div class=mi>' + ini + '</div>\'">' : '<div class="mi">' + ini + '</div>';
+  $('m-text').innerHTML = 'Yakin akan memilih ' + (cat === 'Guru' ? 'Guru' : 'Staf TU') + ' <b>' + esc(cand.nama) + '</b>?';
+  $('ov').classList.add('show');
+});
+$('m-no').onclick = function () { $('ov').classList.remove('show'); S.pending = null; };
+$('m-yes').onclick = function () {
+  if (!S.pending || S.busy) return;
+  var p = S.pending;
+  if (p.cat === 'Guru') {
+    S.guru = p.c; $('ov').classList.remove('show'); S.pending = null; show('v-tu', 3); return;
+  }
+  S.tu = p.c; S.busy = true;
+  var y = $('m-yes'); y.disabled = true; y.textContent = 'Menyimpan…';
+  post({ action: 'vote', id: S.me.id, guru: S.guru.no, tu: S.tu.no }).then(function (r) {
+    $('ov').classList.remove('show');
+    $('sum').innerHTML = 'Guru favorit: <b>' + esc(r.guru) + '</b><br>Staf TU favorit: <b>' + esc(r.tu) + '</b>';
+    show('v-done', 3);
+  }).catch(function (e) {
+    $('ov').classList.remove('show'); toast(e.message);
+  }).then(function () { S.busy = false; y.disabled = false; y.textContent = 'Ya, saya yakin'; S.pending = null; });
+};
+
+loadPublic();
+</script>
+</body>
+</html>
