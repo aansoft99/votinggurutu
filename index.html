@@ -1,12 +1,3 @@
-Link Google Drive (`[https://drive.google.com/file/d/1HwF2xzY28pOMIvNAhaucE456yJLRq_oh/view?usp=drive_link](https://drive.google.com/file/d/1HwF2xzY28pOMIvNAhaucE456yJLRq_oh/view?usp=drive_link)`) tidak bisa langsung dimasukkan ke atribut `src` pada tag `<img>` karena itu adalah halaman *preview* Google Drive, bukan link file gambar langsung.
-
-Untuk memunculkannya di HTML, link tersebut harus diubah ke format **thumbnail/direct image link** Google Drive (`[https://drive.google.com/thumbnail?id=1HwF2xzY28pOMIvNAhaucE456yJLRq_oh&sz=w500](https://drive.google.com/thumbnail?id=1HwF2xzY28pOMIvNAhaucE456yJLRq_oh&sz=w500)`), serta ditambahkan `referrerpolicy="no-referrer"` agar tidak diblokir oleh browser.
-
-**Pastikan pengaturan berbagi (Share) file logo di Google Drive sudah diubah menjadi *"Siapa saja yang memiliki link" (Anyone with the link)*.**
-
-Berikut adalah kode lengkap siap kopas yang sudah menggunakan link Google Drive Anda (lengkap dengan fitur *cache* dan *retry*):
-
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
