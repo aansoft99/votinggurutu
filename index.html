@@ -1,8 +1,3 @@
-Berikut adalah kode lengkap yang **sudah dilengkapi dengan logo asli**, **sistem cache lokal (`localStorage`)**, serta **mekanisme *retry* otomatis dengan *jitter*** agar aplikasi voting tetap lancar dan tidak mudah *error* meskipun diakses ribuan siswa secara bersamaan.
-
-Anda tinggal menyalin (kopas) seluruh kode di bawah ini:
-
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -76,7 +71,8 @@ footer{margin-top:8px;text-align:center;font-size:12px;color:var(--mut);padding:
 </head>
 <body>
 <header><div class="wrap">
-  <div class="bar"><img class="logo" id="logo" src="data:image/png;base64,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" alt="Logo SMK Negeri 1 Plupuh"><div><h1>Guru & Staf TU Favorit</h1><p>SMK Negeri 1 Plupuh</p></div></div>
+  <!-- GUNAKAN FILE logo.png DI SATU FOLDER YANG SAMA -->
+  <div class="bar"><img class="logo" id="logo" src="logo.png" alt="Logo SMK Negeri 1 Plupuh"><div><h1>Guru & Staf TU Favorit</h1><p>SMK Negeri 1 Plupuh</p></div></div>
   <div class="steps"><div class="step on" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
   <div class="sl"><span class="on" id="t1">Masuk</span><span id="t2">Pilih Guru</span><span id="t3">Pilih Staf TU</span></div>
 </div></header>
@@ -128,13 +124,12 @@ footer{margin-top:8px;text-align:center;font-size:12px;color:var(--mut);padding:
 var API = 'https://script.google.com/macros/s/AKfycbyzl8TbuCrBW_88UIsYVSTSNzrO6Ac4mWPoZx2-QbJbq4Ew-3HpLfa_u_UAO7P0eKqh/exec';
 var PUB = '/api/public';
 var CACHE_KEY = 'vote_public_v1';
-var CACHE_FRESH_MS = 30000; // data < 30 detik: tidak perlu request ulang
+var CACHE_FRESH_MS = 30000;
 
 var S = { me: null, k: { Guru: [], TU: [] }, guru: null, tu: null, pending: null, busy: false, rid: null };
 var $ = function (i) { return document.getElementById(i); };
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-// ---- Utilitas jaringan: timeout, jitter, retry ----
 function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 function jitter(base) { return base + Math.random() * base; }
 function newRid() { return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
@@ -185,7 +180,6 @@ function show(id, step) {
 }
 function fmt(ms) { return new Date(ms).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }); }
 
-// ---- Cache lokal (localStorage) ----
 function readCache() {
   try { var c = JSON.parse(localStorage.getItem(CACHE_KEY)); return c && c.r && c.r.kandidat && c.r.jadwal ? c : null; } catch (e) { return null; }
 }
@@ -193,7 +187,6 @@ function writeCache(r) {
   try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), r: r })); } catch (e) {}
 }
 
-// ---- Jadwal ----
 function calcStatus(d) {
   var now = Date.now();
   if (d.tutup && now > d.tutup) return 'tutup';
@@ -243,7 +236,6 @@ function loadPublic() {
   return sleep(cached ? Math.random() * 2500 : Math.random() * 700).then(go);
 }
 
-// ---- Login ----
 function doLogin() {
   var id = $('uid').value.trim();
   if (id.length < 3) return toast('Masukkan NIS / NIP dengan benar.');
@@ -260,7 +252,6 @@ function doLogin() {
 $('btn-login').onclick = doLogin;
 $('uid').onkeydown = function (e) { if (e.key === 'Enter' && !$('btn-login').disabled) doLogin(); };
 
-// ---- Kartu ----
 function photo(c) {
   return '<div class="ph">' +
     (c.foto ? '<img class="pic" src="' + esc(c.foto) + '" alt="' + esc(c.nama) + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" onerror="this.remove()">' : '') +
@@ -305,11 +296,15 @@ $('m-yes').onclick = function () {
   }).then(function () { S.busy = false; y.disabled = false; y.textContent = 'Ya, saya yakin'; S.pending = null; });
 };
 
-document.documentElement.style.setProperty('--logo', 'url(' + $('logo').src + ')');
-var fav = document.createElement('link'); fav.rel = 'icon'; fav.href = $('logo').src; document.head.appendChild(fav);
+// Pastikan gambar logo ter-load sebelum mengambil properti src untuk CSS variables & favicon
+window.addEventListener('load', function() {
+  var logoEl = $('logo');
+  if (logoEl && logoEl.src) {
+    document.documentElement.style.setProperty('--logo', 'url(' + logoEl.src + ')');
+    var fav = document.createElement('link'); fav.rel = 'icon'; fav.href = logoEl.src; document.head.appendChild(fav);
+  }
+});
 loadPublic();
 </script>
 </body>
 </html>
-
-```
